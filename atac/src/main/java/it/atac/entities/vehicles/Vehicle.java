@@ -1,4 +1,9 @@
-package it.atac.entities;
+package it.atac.entities.vehicles;
+
+import it.atac.entities.vehicleutility.Maintenance;
+import it.atac.entities.vehicleutility.Service;
+import it.atac.entities.Ticket;
+import it.atac.entities.VehicleRoute;
 
 import java.util.List;
 import java.util.UUID;
@@ -6,12 +11,13 @@ import java.util.UUID;
 public abstract class Vehicle {
 
   protected UUID id;
-  protected static int capacity;
   protected static int maxRoutes;
   protected boolean isWorking;
   protected int totalRoutes;
-  List<Ticket> tickets;
-  List<Route> routes;
+  protected List<Ticket> tickets;
+  protected List<Maintenance> maintenances;
+  protected List<Service> services;
+  protected List<VehicleRoute> vehicleRouteList ;
 
   public Vehicle(boolean isWorking, int totalRoutes) {
     this.isWorking = isWorking;
@@ -20,16 +26,12 @@ public abstract class Vehicle {
 
   public Vehicle() {}
 
+  public List<VehicleRoute> getVehicleRouteList() {
+    return vehicleRouteList;
+  }
+
   public UUID getId() {
     return id;
-  }
-
-  public static int getCapacity() {
-    return capacity;
-  }
-
-  public static void setCapacity(int capacity) {
-    Vehicle.capacity = capacity;
   }
 
   public static int getMaxRoutes() {
@@ -60,8 +62,12 @@ public abstract class Vehicle {
     return tickets;
   }
 
-  public List<Route> getRoutes() {
-    return routes;
+  public List<Maintenance> getMaintenances() {
+    return maintenances;
+  }
+
+  public List<Service> getServices() {
+    return services;
   }
 
   @Override
@@ -71,9 +77,6 @@ public abstract class Vehicle {
             ", isWorking=" + isWorking +
             ", totalRoutes=" + totalRoutes +
             ", tickets=" + tickets +
-            ", routes=" + routes +
             '}';
   }
-
-
 }
