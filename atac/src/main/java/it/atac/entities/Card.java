@@ -1,25 +1,43 @@
 package it.atac.entities;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Table(name = "cards")
 public class Card {
-    private UUID id;
-    private boolean isActive;
-    private LocalDate activationDate;
-    private LocalDate expirationDate;
-    private User user;
-    private List<Membership> memberships;
-    private Membership membership;
 
-    public Card(LocalDate activationDate, User user, List<Membership> memberships, Membership membership) {
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @Column(name = "is_active")
+    private boolean isActive;
+
+    @Column(name = "activation_date", nullable = false)
+    private LocalDate activationDate;
+
+    @Column(name = "expiration_date", nullable = false)
+    private LocalDate expirationDate;
+
+    @OneToOne(mappedBy = "card")
+    private User user;
+
+    @OneToMany(mappedBy = "card")
+    private List<Membership> memberships;
+
+    @Column(name = "active_membership")
+    private boolean activeMembership;
+
+    public Card(LocalDate activationDate, User user, List<Membership> memberships, boolean activeMembership) {
         this.activationDate = activationDate;
         this.expirationDate = activationDate.plusYears(1);
         this.isActive = this.checkValidity(this.expirationDate);
         this.user = user;
         this.memberships = memberships;
-        this.membership = membership;
+        this.setActiveMembership();
     }
 
     public Card() {
@@ -67,12 +85,16 @@ public class Card {
         return memberships;
     }
 
-    public Membership getMembership() {
-        return membership;
+    public boolean getActiveMembership() {
+        return activeMembership;
     }
 
-    public void setMembership(Membership membership) {
-        this.membership = membership;
+    /**
+     * Setta a 'true' la variabile 'activeMembership' se trova una membership attiva nella lista di membership associate ad una card, altrimenti 'false'.
+     * N.B una card può avere massimo una sola membership attiva alla volta!
+     */
+    public void setActiveMembership() {
+        this.activeMembership = this.memberships.stream().anyMatch(m -> m.isActive());
     }
 
     public boolean checkValidity(LocalDate expirationDate){
@@ -87,7 +109,7 @@ public class Card {
                 ", activationDate=" + activationDate +
                 ", expirationDate=" + expirationDate +
                 ", user=" + user +
-                ", membership=" + membership +
+                ", membership=" + activeMembership +
                 '}';
     }
 }

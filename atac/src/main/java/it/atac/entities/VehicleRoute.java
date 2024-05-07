@@ -2,13 +2,26 @@ package it.atac.entities;
 
 import it.atac.entities.vehicles.Vehicle;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "vehicles_routes")
 public class VehicleRoute {
 
+    @Id
+    @GeneratedValue
     private UUID id;
+
+    @Column(name = "actual_time", nullable = false)
     private int actualTime;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
+
+    @ManyToOne
+    @JoinColumn(name = "route_id", nullable = false)
     private Route route;
 
     public VehicleRoute(int actualTime, Vehicle vehicle, Route route) {

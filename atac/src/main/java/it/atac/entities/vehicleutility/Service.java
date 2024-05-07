@@ -2,14 +2,27 @@ package it.atac.entities.vehicleutility;
 
 import it.atac.entities.vehicles.Vehicle;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+
+@Entity
+@Table(name = "services")
 public class Service {
 
+    @Id
+    @GeneratedValue
     private UUID id;
+
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
+
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
     public Service(LocalDate startDate, LocalDate endDate, Vehicle vehicle) {

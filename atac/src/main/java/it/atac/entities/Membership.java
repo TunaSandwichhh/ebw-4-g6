@@ -3,16 +3,37 @@ package it.atac.entities;
 import it.atac.entities.enums.MembershipType;
 import it.atac.entities.sellers.Reseller;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Entity
+@Table(name = "memberships")
 public class Membership {
+
+    @Id
+    @GeneratedValue
     private UUID id;
+
+    @Column(name = "date_of_issue", nullable = false)
     private LocalDate dateOfIssue;
+
+    @Column(name = "is_active")
     private boolean isActive;
+
+    @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "membership_type", nullable = false)
     private MembershipType membershipType;
+
+    @ManyToOne
+    @JoinColumn(name = "card_id", nullable = false)
     private Card card;
+
+    @ManyToOne
+    @JoinColumn(name = "reseller_id", nullable = false)
     private Reseller reseller;
 
     public Membership(LocalDate dateOfIssue, MembershipType membershipType, Card card, Reseller reseller) {
