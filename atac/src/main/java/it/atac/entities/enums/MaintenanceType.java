@@ -1,4 +1,4 @@
-package it.atac.entities;
+package it.atac.entities.enums;
 
 public enum MaintenanceType {
 

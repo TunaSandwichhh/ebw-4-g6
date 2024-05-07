@@ -1,4 +1,9 @@
-package it.atac.entities;
+package it.atac.entities.vehicles;
+
+import it.atac.entities.vehicleutility.Maintenance;
+import it.atac.entities.vehicleutility.Service;
+import it.atac.entities.Ticket;
+import it.atac.entities.VehicleRoute;
 
 import java.util.List;
 import java.util.UUID;
@@ -6,7 +11,6 @@ import java.util.UUID;
 public abstract class Vehicle {
 
   protected UUID id;
-  protected static int capacity;
   protected static int maxRoutes;
   protected boolean isWorking;
   protected int totalRoutes;
@@ -28,14 +32,6 @@ public abstract class Vehicle {
 
   public UUID getId() {
     return id;
-  }
-
-  public static int getCapacity() {
-    return capacity;
-  }
-
-  public static void setCapacity(int capacity) {
-    Vehicle.capacity = capacity;
   }
 
   public static int getMaxRoutes() {
@@ -74,8 +70,8 @@ public abstract class Vehicle {
     return services;
   }
 
-  @java.lang.Override
-  public java.lang.String toString() {
+  @Override
+  public String toString() {
     return "Vehicle{" +
             "id=" + id +
             ", isWorking=" + isWorking +

@@ -1,5 +1,7 @@
 package it.atac.entities;
 
+import it.atac.entities.vehicles.Vehicle;
+
 import java.util.UUID;
 
 public class VehicleRoute {

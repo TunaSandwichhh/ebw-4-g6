@@ -1,4 +1,7 @@
-package it.atac.entities;
+package it.atac.entities.vehicleutility;
+
+import it.atac.entities.enums.MaintenanceType;
+import it.atac.entities.vehicles.Vehicle;
 
 import java.time.LocalDate;
 import java.util.UUID;
