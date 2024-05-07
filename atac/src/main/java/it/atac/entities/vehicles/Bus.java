@@ -1,6 +1,14 @@
 package it.atac.entities.vehicles;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "buses")
 public class Bus extends Vehicle{
+
+    @Column(nullable = false)
     private int capacity;
 
     public Bus(boolean isWorking, int totalRoutes) {

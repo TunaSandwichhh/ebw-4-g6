@@ -1,13 +1,28 @@
 package it.atac.entities;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue
     private UUID id;
+
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
+
+    @OneToOne
+    @JoinColumn(name = "card_id")
     private Card card;
 
     public User(String firstName, String lastName, LocalDate dateOfBirth, Card card) {
