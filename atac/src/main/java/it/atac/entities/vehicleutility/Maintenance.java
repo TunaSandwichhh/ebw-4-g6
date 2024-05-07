@@ -3,16 +3,32 @@ package it.atac.entities.vehicleutility;
 import it.atac.entities.enums.MaintenanceType;
 import it.atac.entities.vehicles.Vehicle;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Entity
+@Table(name = "maintenances")
 public class Maintenance {
 
+    @Id
+    @GeneratedValue
     private UUID id;
+
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
+
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
+
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "maintenance_type", nullable = false)
     private MaintenanceType maintenanceType;
 
     public Maintenance(LocalDate startDate, LocalDate endDate, Vehicle vehicle, String description, MaintenanceType maintenanceType) {

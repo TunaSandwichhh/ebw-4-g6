@@ -3,10 +3,19 @@ package it.atac.entities.sellers;
 import it.atac.entities.Membership;
 import it.atac.entities.Ticket;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
+@Entity
+@Table(name = "vending_machines")
 public class VendingMachine extends Reseller{
+
+    @Column(name = "is_online")
     private boolean isOnline = true;
+
+    @Column(name = "total_tickets")
     private int totalTickets = 150;
 
     public VendingMachine(List<Ticket> soldTickets, List<Membership> soldMemberships, int totalTickets) {
