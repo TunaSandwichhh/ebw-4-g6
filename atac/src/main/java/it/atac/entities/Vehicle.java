@@ -10,8 +10,10 @@ public abstract class Vehicle {
   protected static int maxRoutes;
   protected boolean isWorking;
   protected int totalRoutes;
-  List<Ticket> tickets;
-  List<Route> routes;
+  protected List<Ticket> tickets;
+  protected List<Maintenance> maintenances;
+  protected List<Service> services;
+  protected List<VehicleRoute> vehicleRouteList ;
 
   public Vehicle(boolean isWorking, int totalRoutes) {
     this.isWorking = isWorking;
@@ -19,6 +21,10 @@ public abstract class Vehicle {
   }
 
   public Vehicle() {}
+
+  public List<VehicleRoute> getVehicleRouteList() {
+    return vehicleRouteList;
+  }
 
   public UUID getId() {
     return id;
@@ -60,20 +66,21 @@ public abstract class Vehicle {
     return tickets;
   }
 
-  public List<Route> getRoutes() {
-    return routes;
+  public List<Maintenance> getMaintenances() {
+    return maintenances;
   }
 
-  @Override
-  public String toString() {
+  public List<Service> getServices() {
+    return services;
+  }
+
+  @java.lang.Override
+  public java.lang.String toString() {
     return "Vehicle{" +
             "id=" + id +
             ", isWorking=" + isWorking +
             ", totalRoutes=" + totalRoutes +
             ", tickets=" + tickets +
-            ", routes=" + routes +
             '}';
   }
-
-
 }
