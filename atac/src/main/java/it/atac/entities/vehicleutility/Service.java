@@ -57,7 +57,7 @@ public class Service {
     }
 
     public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+        if(vehicle.isWorking()) this.vehicle = vehicle;
     }
 
     @Override

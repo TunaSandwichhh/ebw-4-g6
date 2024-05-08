@@ -7,11 +7,13 @@ import it.atac.entities.sellers.ResellerStore;
 import it.atac.entities.sellers.VendingMachine;
 import it.atac.entities.vehicles.Bus;
 import it.atac.entities.vehicles.Tram;
+import it.atac.entities.vehicleutility.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Main {
 
@@ -38,6 +40,9 @@ public class Main {
     b1.setWorking(true);
 
     busDAO.save(b1);
+
+    Service s1 = new Service();
+    s1.setVehicle(b1);
 
 //    Tram tram1 = new Tram();
 //    tram1.setWorking(true);
@@ -83,15 +88,15 @@ public class Main {
     t1.setDateOfIssue(LocalDate.of(2024, 5,7));
     t1.setReseller(vm1);
     t1.validateTicket(b1);
-
     ticketDAO.save(t1);
 
-    em.refresh(vm1);
-
     System.out.println("Lista biglietti per vending machine");
-    vm1.getSoldTickets().forEach(System.out::println);
+    VendingMachine vm2 = vendingMachineDAO.getById(UUID.fromString("99fca705-edd6-458c-b668-6d95327a241b"));
+    vm2.getSoldTickets().forEach(System.out::println);
+
     System.out.println("Lista biglietti per bus");
-    b1.getTickets().forEach(System.out::println);
+    Bus b2 = busDAO.getById(b1.getId());
+    b2.getTickets().forEach(System.out::println);
 
 
   }

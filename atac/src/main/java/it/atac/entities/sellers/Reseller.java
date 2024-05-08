@@ -16,9 +16,9 @@ public abstract class Reseller {
     @GeneratedValue
     protected UUID id;
 
-    @OneToMany(mappedBy = "reseller", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "reseller")
     @Column(name = "sold_tickets")
-    protected List<Ticket> soldTickets = new ArrayList<>();
+    protected List<Ticket> soldTickets;
 
     @OneToMany(mappedBy = "reseller")
     @Column(name = "sold_memberships")
