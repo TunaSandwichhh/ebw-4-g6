@@ -19,7 +19,7 @@ public class Maintenance {
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "end_date", nullable = false)
+    @Column(name = "end_date")
     private LocalDate endDate;
 
     @ManyToOne
@@ -74,8 +74,12 @@ public class Maintenance {
      */
     public void startMaintenance(Vehicle vehicle) {
         this.vehicle = vehicle;
-        List<Service> serviceList = this.vehicle.getServices().stream().
-                filter(service -> service.getVehicle().isWorking()).toList();
+
+        List<Service> serviceList = this.vehicle.getServices()
+                .stream()
+                .filter(service -> service.getVehicle().isWorking())
+                .toList();
+
         serviceList.getFirst().setDataFine(LocalDate.now());
         this.vehicle.setWorking(false);
     }
