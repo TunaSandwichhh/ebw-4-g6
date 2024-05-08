@@ -2,6 +2,7 @@ package it.atac.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ public class Card {
     private User user;
 
     @OneToMany(mappedBy = "card")
-    private List<Membership> memberships;
+    private List<Membership> memberships = new ArrayList<>();
 
     @Column(name = "active_membership")
     private boolean activeMembership;

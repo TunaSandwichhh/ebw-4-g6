@@ -74,6 +74,7 @@ public class Membership {
 
     public void setMembershipType(MembershipType membershipType) {
         this.membershipType = membershipType;
+        this.expirationDate = this.membershipType == MembershipType.WEEKLY ? dateOfIssue.plusDays(7) : dateOfIssue.plusDays(30);
     }
 
     public Card getCard() {

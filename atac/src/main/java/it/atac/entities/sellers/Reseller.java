@@ -4,6 +4,7 @@ import it.atac.entities.Membership;
 import it.atac.entities.Ticket;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,9 +16,9 @@ public abstract class Reseller {
     @GeneratedValue
     protected UUID id;
 
-    @OneToMany(mappedBy = "reseller")
+    @OneToMany(mappedBy = "reseller", fetch = FetchType.EAGER)
     @Column(name = "sold_tickets")
-    protected List<Ticket> soldTickets;
+    protected List<Ticket> soldTickets = new ArrayList<>();
 
     @OneToMany(mappedBy = "reseller")
     @Column(name = "sold_memberships")

@@ -9,11 +9,10 @@ import javax.persistence.Table;
 public class Bus extends Vehicle{
 
     @Column(nullable = false)
-    private int capacity;
+    private int capacity = 50;
 
     public Bus(boolean isWorking, int totalRoutes) {
         super(isWorking, totalRoutes);
-        this.capacity = 50;
     }
 
     public Bus() {
