@@ -74,6 +74,10 @@ public class Card {
         return expirationDate;
     }
 
+    public void setExpirationDate() {
+        this.expirationDate = this.activationDate.plusYears(1);
+    }
+
     public User getUser() {
         return user;
     }

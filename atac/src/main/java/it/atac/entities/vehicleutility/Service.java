@@ -18,7 +18,7 @@ public class Service {
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "end_date", nullable = false)
+    @Column(name = "end_date", nullable = true)
     private LocalDate endDate;
 
     @ManyToOne
@@ -30,6 +30,7 @@ public class Service {
         this.endDate = endDate;
         this.vehicle = vehicle;
     }
+
     public Service(){}
 
     public UUID getId() {
@@ -58,6 +59,7 @@ public class Service {
 
     public void setVehicle(Vehicle vehicle) {
         if(vehicle.isWorking()) this.vehicle = vehicle;
+
     }
 
     @Override

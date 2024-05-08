@@ -5,6 +5,7 @@ import it.atac.entities.vehicles.Vehicle;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -65,9 +66,20 @@ public class Maintenance {
         return vehicle;
     }
 
-    public void setVehicle(Vehicle vehicle) {
+
+    /**
+     * riceve un veicolo come parametro in ingresso, pone fine al suo servizio e
+     * ne setta lo status a inattivo tramite setWorking(false)
+     * @param vehicle
+     */
+    public void startMaintenance(Vehicle vehicle) {
         this.vehicle = vehicle;
+        List<Service> serviceList = this.vehicle.getServices().stream().
+                filter(service -> service.getVehicle().isWorking()).toList();
+        serviceList.getFirst().setDataFine(LocalDate.now());
+        this.vehicle.setWorking(false);
     }
+
 
     public String getDescription() {
         return description;
