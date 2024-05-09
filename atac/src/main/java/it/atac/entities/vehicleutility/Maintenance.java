@@ -80,7 +80,7 @@ public class Maintenance {
                 .filter(service -> service.getVehicle().isWorking())
                 .toList();
 
-        serviceList.getFirst().setDataFine(LocalDate.now());
+        serviceList.getFirst().setEndDate(LocalDate.now());
         this.vehicle.setWorking(false);
     }
 

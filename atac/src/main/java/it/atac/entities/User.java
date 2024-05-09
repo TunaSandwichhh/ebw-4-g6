@@ -78,7 +78,6 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", card=" + card +
                 '}';
     }
 }

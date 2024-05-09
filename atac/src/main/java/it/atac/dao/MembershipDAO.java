@@ -49,6 +49,6 @@ public class MembershipDAO {
     query.setParameter("cardId", cardId);
     Card card = (Card) query.getSingleResult();
 
-    return em.find(Card.class, cardId).checkValidity(card.getExpirationDate());
+    return em.find(Card.class, cardId).getActiveMembership();
   }
 }
