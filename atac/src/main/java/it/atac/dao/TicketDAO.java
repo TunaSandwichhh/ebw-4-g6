@@ -4,6 +4,9 @@ import it.atac.entities.Ticket;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class TicketDAO {
@@ -30,5 +33,12 @@ public class TicketDAO {
     et.begin();
     em.remove(ticket);
     et.commit();
+  }
+
+  public List<Ticket> validatedTicketsByDates(LocalDate startDate, LocalDate endDate) {
+    Query query = em.createQuery("SELECT t FROM Ticket t WHERE t.validationDate >= :startDate AND t.validationDate <= :endDate");
+    query.setParameter("startDate", startDate);
+    query.setParameter("endDate", endDate);
+    return query.getResultList();
   }
 }

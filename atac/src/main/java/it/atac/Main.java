@@ -37,5 +37,7 @@ public class Main {
     VendingMachineDAO vendingMachineDAO = new VendingMachineDAO(em);
     VehicleRouteDAO vehicleRouteDAO = new VehicleRouteDAO(em);
 
+
+
   }
 }
