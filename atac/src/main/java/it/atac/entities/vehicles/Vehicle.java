@@ -6,6 +6,7 @@ import it.atac.entities.Ticket;
 import it.atac.entities.VehicleRoute;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public abstract class Vehicle {
   protected boolean isWorking;
 
   @Column(name = "total_routes", nullable = false)
-  protected int totalRoutes;
+  protected int totalRoutes = 0;
 
   @OneToMany(mappedBy = "vehicle")
   protected List<Ticket> tickets;

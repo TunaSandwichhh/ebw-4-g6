@@ -4,6 +4,7 @@ import it.atac.entities.Membership;
 import it.atac.entities.Ticket;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

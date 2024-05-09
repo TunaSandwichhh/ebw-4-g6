@@ -4,6 +4,7 @@ import it.atac.entities.vehicles.Vehicle;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -18,7 +19,7 @@ public class Service {
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "end_date", nullable = false)
+    @Column(name = "end_date", nullable = true)
     private LocalDate endDate;
 
     @ManyToOne
@@ -30,6 +31,7 @@ public class Service {
         this.endDate = endDate;
         this.vehicle = vehicle;
     }
+
     public Service(){}
 
     public UUID getId() {
@@ -56,8 +58,19 @@ public class Service {
         return vehicle;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void startService(Vehicle vehicle) {
+        if(vehicle.isWorking()) {
+            this.vehicle = vehicle;
+        }
+
+        List<Maintenance> maintenanceList = this.vehicle.getMaintenances()
+                .stream()
+                .filter(maintenance -> maintenance.getVehicle().isWorking())
+                .toList();
+
+        maintenanceList.getFirst().setEndDate(LocalDate.now());
+        this.vehicle.setWorking(true);
+
     }
 
     @Override

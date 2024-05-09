@@ -2,6 +2,7 @@ package it.atac.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,11 +23,14 @@ public class Card {
     @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
 
+    @Column(name = "creation_date", nullable = false)
+    private LocalDate creationDate = LocalDate.now();
+
     @OneToOne(mappedBy = "card")
     private User user;
 
     @OneToMany(mappedBy = "card")
-    private List<Membership> memberships;
+    private List<Membership> memberships = new ArrayList<>();
 
     @Column(name = "active_membership")
     private boolean activeMembership;
@@ -45,6 +49,10 @@ public class Card {
 
     public UUID getId() {
         return id;
+    }
+
+    public LocalDate getCreationDate() {
+        return this.creationDate;
     }
 
     public boolean isActive() {
@@ -71,6 +79,10 @@ public class Card {
 
     public LocalDate getExpirationDate() {
         return expirationDate;
+    }
+
+    public void setExpirationDate() {
+        this.expirationDate = this.activationDate.plusYears(1);
     }
 
     public User getUser() {

@@ -18,11 +18,11 @@ public class Ticket {
     @Column(name = "date_of_issue", nullable = false)
     private LocalDate dateOfIssue;
 
-    @Column(name = "validation_date", nullable = false)
+    @Column(name = "validation_date")
     private LocalDate validationDate;
 
     @Column(name = "is_valid")
-    private boolean isValid;
+    private boolean isValid = true;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
@@ -84,6 +84,12 @@ public class Ticket {
 
     public void setReseller(Reseller reseller) {
         this.reseller = reseller;
+    }
+
+    public void validateTicket(Vehicle vehicle){
+        this.validationDate = LocalDate.now();
+        this.isValid = false;
+        this.vehicle = vehicle;
     }
 
     @Override
