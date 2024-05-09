@@ -2,6 +2,7 @@ package it.atac.entities;
 
 import it.atac.entities.sellers.Reseller;
 import it.atac.entities.vehicles.Vehicle;
+import it.atac.exceptions.VehicleException;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -86,10 +87,14 @@ public class Ticket {
         this.reseller = reseller;
     }
 
-    public void validateTicket(Vehicle vehicle){
-        this.validationDate = LocalDate.now();
-        this.isValid = false;
-        this.vehicle = vehicle;
+    public void validateTicket(Vehicle vehicle) throws VehicleException {
+        if(vehicle != null) {
+            this.validationDate = LocalDate.now();
+            this.isValid = false;
+            this.vehicle = vehicle;
+        } else {
+            throw new VehicleException("Vehicle cannot be null.");
+        }
     }
 
     @Override

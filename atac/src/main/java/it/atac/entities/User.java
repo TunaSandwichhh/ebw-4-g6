@@ -1,5 +1,7 @@
 package it.atac.entities;
 
+import it.atac.exceptions.DateOfBirthException;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -59,8 +61,12 @@ public class User {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setDateOfBirth(LocalDate dateOfBirth) throws DateOfBirthException {
+        if(dateOfBirth.isBefore(LocalDate.now().minusYears(18)) || dateOfBirth.isAfter(LocalDate.now().minusYears(130))) {
+            this.dateOfBirth = dateOfBirth;
+        } else {
+            throw new DateOfBirthException("Inserire una data di nascita valida.");
+        }
     }
 
     public Card getCard() {

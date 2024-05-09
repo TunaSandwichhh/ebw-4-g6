@@ -1,5 +1,7 @@
 package it.atac.entities;
 
+import it.atac.exceptions.ExpirationDateException;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,13 +37,16 @@ public class Card {
     @Column(name = "active_membership")
     private boolean activeMembership;
 
-    public Card(LocalDate activationDate, User user, List<Membership> memberships, boolean activeMembership) {
-        this.activationDate = activationDate;
-        this.expirationDate = activationDate.plusYears(1);
-        this.isActive = this.checkValidity(this.expirationDate);
-        this.user = user;
-        this.memberships = memberships;
-        this.setActiveMembership();
+    public Card(LocalDate activationDate, User user)  {
+        try {
+            this.activationDate = activationDate;
+            this.expirationDate = activationDate.plusYears(1);
+            this.isActive = this.checkValidity(this.expirationDate);
+            this.user = user;
+            this.setActiveMembership();
+        } catch (ExpirationDateException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public Card() {
@@ -59,13 +64,11 @@ public class Card {
         return isActive;
     }
 
-    /**
-     * Gestire eccezione in caso expirationDate = null
-     * @param active
-     */
-    public void setActive(boolean active) {
+    public void setActive(boolean active) throws ExpirationDateException {
         if (this.expirationDate != null) {
             this.isActive = this.checkValidity(this.expirationDate);
+        } else {
+            throw new ExpirationDateException("Expiration date cannot be null.");
         }
     }
 
@@ -109,8 +112,12 @@ public class Card {
         this.activeMembership = this.memberships.stream().anyMatch(m -> m.isActive());
     }
 
-    public boolean checkValidity(LocalDate expirationDate){
-       return LocalDate.now().toEpochDay()<expirationDate.toEpochDay();
+    public boolean checkValidity(LocalDate expirationDate) throws ExpirationDateException{
+        if(expirationDate != null) {
+            return LocalDate.now().toEpochDay()<expirationDate.toEpochDay();
+        } else {
+            throw new ExpirationDateException("Expiration date cannot be null.");
+        }
     }
 
     @Override

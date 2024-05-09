@@ -1,6 +1,8 @@
 package it.atac;
 
 import it.atac.dao.*;
+import it.atac.entities.Card;
+import it.atac.exceptions.ExpirationDateException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
