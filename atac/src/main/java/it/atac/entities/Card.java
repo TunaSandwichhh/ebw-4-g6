@@ -23,6 +23,9 @@ public class Card {
     @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
 
+    @Column(name = "creation_date", nullable = false)
+    private LocalDate creationDate = LocalDate.now();
+
     @OneToOne(mappedBy = "card")
     private User user;
 
@@ -46,6 +49,10 @@ public class Card {
 
     public UUID getId() {
         return id;
+    }
+
+    public LocalDate getCreationDate() {
+        return this.creationDate;
     }
 
     public boolean isActive() {
