@@ -38,19 +38,19 @@ public class Service {
         return id;
     }
 
-    public LocalDate getDataInizio() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setDataInizio(LocalDate startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getDataFine() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setDataFine(LocalDate endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

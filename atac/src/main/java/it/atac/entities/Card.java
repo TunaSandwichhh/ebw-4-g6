@@ -120,8 +120,9 @@ public class Card {
                 ", isActive=" + isActive +
                 ", activationDate=" + activationDate +
                 ", expirationDate=" + expirationDate +
+                ", creationDate=" + creationDate +
                 ", user=" + user +
-                ", membership=" + activeMembership +
+                ", activeMembership=" + activeMembership +
                 '}';
     }
 }

@@ -35,17 +35,17 @@ public class VehicleRouteDAO {
         et.commit();
     }
 
-    public int countVehicleRoutes(UUID vehicleID, UUID routeID) {
-        Query query = em.createQuery("SELECT count(vr) FROM VehicleRoute vr WHERE vr.vehicle = :vehicleID AND vr.route = :routeID");
+    public Long countVehicleRoutes(UUID vehicleID, UUID routeID) {
+        Query query = em.createQuery("SELECT count(vr) FROM VehicleRoute vr WHERE vr.vehicle.id = :vehicleID AND vr.route.id = :routeID");
         query.setParameter("vehicleID", vehicleID);
         query.setParameter("routeID", routeID);
-        return Integer.getInteger(query.getSingleResult().toString());
+        return Long.parseLong(query.getSingleResult().toString());
     }
 
-    public int totalTimeVehicleOnRoute(UUID vehicleID, UUID routeID) {
-        Query query = em.createQuery("SELECT sum(vr.actualTime) FROM VehicleRoute vr WHERE vr.vehicle = :vehicleID AND vr.route = :routeID");
+    public long totalTimeVehicleOnRoute(UUID vehicleID, UUID routeID) {
+        Query query = em.createQuery("SELECT sum(vr.actualTime) FROM VehicleRoute vr WHERE vr.vehicle.id = :vehicleID AND vr.route.id = :routeID");
         query.setParameter("vehicleID", vehicleID);
         query.setParameter("routeID", routeID);
-        return Integer.getInteger(query.getSingleResult().toString());
+        return (long) query.getSingleResult();
     }
 }
