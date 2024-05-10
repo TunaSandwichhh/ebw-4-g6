@@ -44,11 +44,10 @@ public class MembershipDAO {
   }
 
   public boolean checkMembership(UUID cardId) {
-
-    Query query = em.createQuery("SELECT c FROM Card c WHERE c.id = :cardId");
+    Query query = em.createQuery("SELECT m FROM Membership m WHERE m.card.id = :cardId");
     query.setParameter("cardId", cardId);
-    Card card = (Card) query.getSingleResult();
+    Membership membership = (Membership) query.getSingleResult();
 
-    return em.find(Card.class, cardId).getActiveMembership();
+    return membership.isActive();
   }
 }
