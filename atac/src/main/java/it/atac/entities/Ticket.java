@@ -75,10 +75,6 @@ public class Ticket {
         return vehicle;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
     public Reseller getReseller() {
         return this.reseller;
     }

@@ -42,6 +42,7 @@ public class VehicleRoute {
 
     public void setActualTime(int actualTime) {
         this.actualTime = actualTime;
+
     }
 
     public Vehicle getVehicle() {
