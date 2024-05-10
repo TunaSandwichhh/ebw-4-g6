@@ -32,7 +32,8 @@ public class Service {
         this.vehicle = vehicle;
     }
 
-    public Service(){}
+    public Service() {
+    }
 
     public UUID getId() {
         return id;
@@ -59,17 +60,21 @@ public class Service {
     }
 
     public void startService(Vehicle vehicle) {
-        if(vehicle.isWorking()) {
+        if (vehicle != null) {
             this.vehicle = vehicle;
+            this.startDate = LocalDate.now();
         }
 
         List<Maintenance> maintenanceList = this.vehicle.getMaintenances()
                 .stream()
-                .filter(maintenance -> maintenance.getVehicle().isWorking())
+                .filter(maintenance -> !maintenance.getVehicle().isWorking())
                 .toList();
 
-        maintenanceList.getFirst().setEndDate(LocalDate.now());
-        this.vehicle.setWorking(true);
+        if (!maintenanceList.isEmpty()) {
+            maintenanceList.getFirst().setEndDate(LocalDate.now());
+            this.vehicle.setWorking(true);
+        }
+
 
     }
 

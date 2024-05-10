@@ -2,6 +2,7 @@ package it.atac.entities;
 
 import it.atac.entities.enums.MembershipType;
 import it.atac.entities.sellers.Reseller;
+import it.atac.exceptions.ExpirationDateException;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -37,12 +38,16 @@ public class Membership {
     private Reseller reseller;
 
     public Membership(LocalDate dateOfIssue, MembershipType membershipType, Card card, Reseller reseller) {
-        this.dateOfIssue = dateOfIssue;
-        this.membershipType = membershipType;
-        this.card = card;
-        this.reseller = reseller;
-        this.expirationDate = this.membershipType == MembershipType.WEEKLY ? dateOfIssue.plusDays(7) : dateOfIssue.plusDays(30);
-        this.isActive = this.checkValidity(expirationDate); //approccio con metodo --> più pulito, "meno" performante
+        try {
+            this.dateOfIssue = dateOfIssue;
+            this.membershipType = membershipType;
+            this.card = card;
+            this.reseller = reseller;
+            this.expirationDate = this.membershipType == MembershipType.WEEKLY ? dateOfIssue.plusDays(7) : dateOfIssue.plusDays(30);
+            this.isActive = this.checkValidity(expirationDate); //approccio con metodo --> più pulito, "meno" performante
+        } catch(ExpirationDateException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public Membership() {
@@ -63,6 +68,8 @@ public class Membership {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+
 
     public LocalDate getExpirationDate() {
         return expirationDate;
@@ -97,6 +104,19 @@ public class Membership {
         return id;
     }
 
+    /**
+     * Creare interfaccia con sto metodo
+     * @param expirationDate
+     * @return
+     */
+    public boolean checkValidity(LocalDate expirationDate) throws ExpirationDateException {
+        if(expirationDate != null) {
+            return LocalDate.now().toEpochDay()<expirationDate.toEpochDay();
+        } else {
+            throw new ExpirationDateException("Expiration date cannot be null.");
+        }
+    }
+
     @Override
     public String toString() {
         return "Membership{" +
@@ -110,13 +130,6 @@ public class Membership {
                 '}';
     }
 
-    /**
-     * Creare interfaccia con sto metodo
-     * @param expirationDate
-     * @return
-     */
-    public boolean checkValidity(LocalDate expirationDate){
-        return LocalDate.now().toEpochDay()<expirationDate.toEpochDay();
-    }
+
 
 }

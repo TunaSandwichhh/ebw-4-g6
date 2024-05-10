@@ -73,15 +73,21 @@ public class Maintenance {
      * @param vehicle
      */
     public void startMaintenance(Vehicle vehicle) {
-        this.vehicle = vehicle;
+        if (vehicle != null) {
+            this.vehicle = vehicle;
+            this.startDate = LocalDate.now();
+        }
 
         List<Service> serviceList = this.vehicle.getServices()
                 .stream()
                 .filter(service -> service.getVehicle().isWorking())
                 .toList();
 
-        serviceList.getFirst().setEndDate(LocalDate.now());
-        this.vehicle.setWorking(false);
+        if (!serviceList.isEmpty()) {
+            serviceList.getFirst().setEndDate(LocalDate.now());
+            this.vehicle.setWorking(false);
+        }
+
     }
 
 

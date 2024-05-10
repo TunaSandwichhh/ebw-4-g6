@@ -4,6 +4,7 @@ import it.atac.entities.Route;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import java.util.UUID;
 
 public class RouteDAO {
@@ -30,5 +31,11 @@ public class RouteDAO {
     et.begin();
     em.remove(route);
     et.commit();
+  }
+
+  public int calculateAverageTimeByRoute (Route route) {
+    int sommaTempiEffettivi = route.getVehicleRouteList().stream().map(vr-> vr.getActualTime()).reduce(0, (acc, cur) -> acc+cur);
+
+    return sommaTempiEffettivi / route.getVehicleRouteList().size();
   }
 }
